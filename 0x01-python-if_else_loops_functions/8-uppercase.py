@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 def uppercase(str):
     """This Function converts the str parameter to uppercase"""
     STR = ""
