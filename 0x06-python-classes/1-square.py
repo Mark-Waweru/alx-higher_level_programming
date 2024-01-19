@@ -2,6 +2,7 @@
 '''This module contains a square class with some methods for manipulating it.
 '''
 
+
 class Square:
     '''This is a square class which manipulates the square mathematics shape.
 
