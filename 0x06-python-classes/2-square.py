@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''This module contains a square class with some methods for manipulating it.
+'''
+
 class Square:
     '''This is a square class which maniplates the square mathematics shape.
 
@@ -13,7 +16,7 @@ class Square:
 
         Raises:
             TypeError: if size is not an integer.
-            ValueError: if isze is less than zero.
+            ValueError: if size is less than zero.
         '''
         if not isinstance(size, int):
             raise TypeError("size must be an integer")
