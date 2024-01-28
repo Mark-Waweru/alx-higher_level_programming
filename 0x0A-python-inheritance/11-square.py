@@ -81,6 +81,7 @@ class Square(Rectangle):
         '''
         self.integer_validator("size", size)
         self.__size = size
+        super().__init__(size, size)
 
     def area(self):
         '''Gets the area of the square object
@@ -88,7 +89,7 @@ class Square(Rectangle):
         Returns:
             int: The area of the square object which is size raised to power 2
         '''
-        return self.__size**2
+        return self.__size ** 2
 
     def __str__(self):
         return "[Square] {0}/{0}".format(self.__size)
