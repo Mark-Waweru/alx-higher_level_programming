@@ -35,14 +35,7 @@ class Student:
 
         Returns:
              a dictionary representation of a Student object'''
-        if attrs is not None:
-            if not isinstance(attrs, list):
-                raise TypeError(
-                            "The argument must be a list containing strings"
-                        )
-            if all(type(attr) != str for attr in attrs):
-                raise TypeError("The list must contain only strings")
+        if isinstance(attrs, list) and all(type(attr) == str for attr in attrs):
 
             return {k: getattr(self, k)for k in attrs if hasattr(self, k)}
-        else:
-            return self.__dict__
+        return self.__dict__
