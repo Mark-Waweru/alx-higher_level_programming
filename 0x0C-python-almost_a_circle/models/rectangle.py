@@ -178,41 +178,94 @@ class Rectangle(Base):
         return "[Rectangle] ({}) {}/{} - {}/{}".format(self.id, self.__x,
                 self.__y, self.__width, self.__height)
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         '''Assigns an argument to each attribute
 
         Args:
             args (int): Multiple arguments
 
+        Raises:
+            TypeError: <name of the attribute> must be an integer
+            ValueError: <name of the attribute> must be > 0
+
         Returns:
             None
         '''
+        if len(args) == 0 and kwargs:
+            for k, v in kwargs.items():
+                if k == "id":
+                    if v is None:
+                        self.__init__(self.width, self.height, self.x, self.y)
+                    else:
+                        self.id = v
+                elif k == "width":
+                    if not isinstance(v, int):
+                        raise TypeError("width must be an integer")
+                    if v <= 0:
+                        raise ValueError("width must be > 0")
+                    self.__width = v
+                elif k == "height":
+                    if not isinstance(v, int):
+                        raise TypeError("height must be an integer")
+                    if v <= 0:
+                        raise ValueError("height must be > 0")
+                    self.__height = v
+                elif k == "x":
+                    if not isinstance(v, int):
+                        raise TypeError("x must be an integer")
+                    if v < 0:
+                        raise ValueError("x must be >= 0")
+                    self.__x = v
+                elif k == "y":
+                    if not isinstance(v, int):
+                        raise TypeError("y must be an integer")
+                    if v < 0:
+                        raise ValueError("y must be >= 0")
+                    self.__y = v
+
+        if len(args) > 0:
+            if not isinstance(args[0], int):
+                raise TypeError("id must be an integer")
+            self.id = args[0]
+
+        if len(args) > 1:
+            if not isinstance(args[1], int):
+                raise TypeError("width must be an integer")
+            if args[1] <= 0:
+                raise ValueError("width must be > 0")
+            self.__width = args[1]
+
+        if len(args) > 2:
+            if not isinstance(args[2], int):
+                raise TypeError("height must be an integer")
+            if args[2] <= 0:
+                raise ValueError("height must be > 0")
+            self.__height = args[2]
+
+        if len(args) > 3:
+            if not isinstance(args[3], int):
+                raise TypeError("x must be an integer")
+            if args[3] < 0:
+                raise ValueError("x must be >= 0")
+            self.__x = args[3]
+
+        if len(args) > 4:
+            if not isinstance(args[4], int):
+                raise TypeError("y must be an integer")
+            if args[4] < 0:
+                raise ValueError("y must be >= 0")
+            self.__y = args[4]
+
         if len(args) == 0:
             return
 
-        if not isinstance(args[0], int) and len(args) > 0:
-            raise TypeError("id must be an integer")
-        elif not isinstance(args[1], int) and len(args) > 1:
-            raise TypeError("width must be an integer")
-        elif not isinstance(args[2], int) and len(args) > 2:
-            raise TypeError("height must be an integer")
-        elif not isinstance(args[3], int) and len(args) > 3:
-            raise TypeError("x must be an integer")
-        elif not isinstance(args[4], int) and len(args) > 4:
-            raise TypeError("y must be an integer")
-        elif args[0] < 0 and len(args) > 0:
-            raise ValueError("id must be >= 0")
-        elif args[1] <= 0 and len(args) > 1:
-            raise ValueError("width must be > 0")
-        elif args[2] <= 0 and len(args) > 2:
-            raise ValueError("height must be > 0")
-        elif args[3] < 0 and len(args) > 3:
-            raise ValueError("x must be >= 0")
-        elif args[4] < 0 and len(args) > 4:
-            raise ValueError("y must be >= 0")
-        else:
-            self.__id = args[0]
-            self.__width = args[1]
-            self.__height = args[2]
-            self.__x = args[3]
-            self.__y = args[4]
+    def to_dictionary(self):
+        '''Returns the dictionary representation of an object rectangle
+
+        Returns:
+            dict: dictionary representation of a Rectangle object'''
+        result = {}
+        for attr, value in self.__dict__.items():
+            clean_attr = attr.lstrip("_{}".format(self.__class__.__name__))
+            result[clean_attr] = value
+        return result
